@@ -1,0 +1,233 @@
+[gd_scene load_steps=10 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/player_tank.tscn" id="1_player"]
+[ext_resource type="PackedScene" path="res://scenes/enemy_tank.tscn" id="2_enemy"]
+[ext_resource type="Script" path="res://scripts/game_manager.gd" id="3_manager"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1"]
+sky_top_color = Color(0.38, 0.45, 0.55, 1)
+sky_horizon_color = Color(0.64, 0.65, 0.67, 1)
+
+[sub_resource type="Sky" id="Sky_1"]
+sky_material = SubResource("ProceduralSkyMaterial_1")
+
+[sub_resource type="Environment" id="Environment_1"]
+background_mode = 2
+sky = SubResource("Sky_1")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_1"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1"]
+size = Vector3(4, 4, 4)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_1"]
+size = Vector2(100, 100)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1"]
+albedo_color = Color(0.15, 0.15, 0.15, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_1"]
+size = Vector3(4, 4, 4)
+
+[node name="Level1" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 10, 0)
+shadow_enabled = true
+
+[node name="Ground" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("WorldBoundaryShape3D_1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("PlaneMesh_1")
+surface_material_override/0 = SubResource("StandardMaterial3D_1")
+
+[node name="PlayerTank" parent="." instance=ExtResource("1_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="Enemies" type="Node3D" parent="."]
+
+[node name="EnemyLight" parent="Enemies" instance=ExtResource("2_enemy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -20)
+enemy_type = 0
+
+[node name="EnemyMedium" parent="Enemies" instance=ExtResource("2_enemy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -25)
+
+[node name="EnemyHeavy" parent="Enemies" instance=ExtResource("2_enemy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, -20)
+enemy_type = 2
+
+[node name="Obstacles" type="Node3D" parent="."]
+
+[node name="Box1" type="StaticBody3D" parent="Obstacles"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 2, -10)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obstacles/Box1"]
+mesh = SubResource("BoxMesh_1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/Box1"]
+shape = SubResource("BoxShape3D_1")
+
+[node name="Box2" type="StaticBody3D" parent="Obstacles"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 2, -12)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obstacles/Box2"]
+mesh = SubResource("BoxMesh_1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/Box2"]
+shape = SubResource("BoxShape3D_1")
+
+[node name="Box3" type="StaticBody3D" parent="Obstacles"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 2, 5)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obstacles/Box3"]
+mesh = SubResource("BoxMesh_1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/Box3"]
+shape = SubResource("BoxShape3D_1")
+
+[node name="Wall1" type="StaticBody3D" parent="Obstacles"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -15)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obstacles/Wall1"]
+transform = Transform3D(4, 0, 0, 0, 1, 0, 0, 0, 0.5, 0, 0, 0)
+mesh = SubResource("BoxMesh_1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/Wall1"]
+transform = Transform3D(4, 0, 0, 0, 1, 0, 0, 0, 0.5, 0, 0, 0)
+shape = SubResource("BoxShape3D_1")
+
+[node name="Wall2" type="StaticBody3D" parent="Obstacles"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 2, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obstacles/Wall2"]
+transform = Transform3D(0.5, 0, 0, 0, 1, 0, 0, 0, 4, 0, 0, 0)
+mesh = SubResource("BoxMesh_1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/Wall2"]
+transform = Transform3D(0.5, 0, 0, 0, 1, 0, 0, 0, 4, 0, 0, 0)
+shape = SubResource("BoxShape3D_1")
+
+[node name="GameManager" type="Node" parent="."]
+process_mode = 3
+script = ExtResource("3_manager")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+process_mode = 3
+
+[node name="GameOverUI" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/GameOverUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.588235)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/GameOverUI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -100.0
+offset_right = 150.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+
+[node name="ResultLabel" type="Label" parent="CanvasLayer/GameOverUI/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "GAME OVER"
+horizontal_alignment = 1
+
+[node name="RestartButton" type="Button" parent="CanvasLayer/GameOverUI/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Chơi lại"
+
+[node name="MenuButton" type="Button" parent="CanvasLayer/GameOverUI/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Menu chính"
+
+[node name="PauseUI" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/PauseUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.392157)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PauseUI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 100.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="CanvasLayer/PauseUI/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "TẠM DỪNG"
+horizontal_alignment = 1
+
+[node name="ResumeButton" type="Button" parent="CanvasLayer/PauseUI/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Tiếp tục"
+
+[node name="RestartButton" type="Button" parent="CanvasLayer/PauseUI/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Chơi lại"
+
+[node name="MenuButton" type="Button" parent="CanvasLayer/PauseUI/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Menu chính"
+
+[connection signal="pressed" from="CanvasLayer/GameOverUI/VBoxContainer/RestartButton" to="GameManager" method="_on_restart_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/GameOverUI/VBoxContainer/MenuButton" to="GameManager" method="_on_menu_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/PauseUI/VBoxContainer/ResumeButton" to="GameManager" method="_on_resume_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/PauseUI/VBoxContainer/RestartButton" to="GameManager" method="_on_restart_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/PauseUI/VBoxContainer/MenuButton" to="GameManager" method="_on_menu_button_pressed"]
