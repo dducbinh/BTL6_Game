@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://bi5an3ycf0li7"]
+
+[node name="Tank"]
+
+[node name="Skeleton3D" parent="TankArmature" index="0"]
+bones/4/position = Vector3(2.0861624e-07, 1.301902, 3.9312341)
+bones/11/position = Vector3(6.1, 1.301902, 3.931234)
+bones/11/rotation = Quaternion(1.1908104e-08, 2.5536963e-08, -0.42261896, 0.90630746)
+bones/12/rotation = Quaternion(1.3607047e-08, -1.2518781e-07, 0.9063078, -0.42261827)
+bones/13/rotation = Quaternion(-1.3932073e-08, 2.9877423e-08, 0.42261836, 0.9063079)
+bones/14/position = Vector3(-6.1000004, 1.3019023, 3.9312344)
+bones/14/rotation = Quaternion(2.998984e-08, -1.4551746e-07, 0.9063076, 0.42261872)
+bones/27/position = Vector3(4.2, 1.3019017, -4.0333447)
+bones/28/position = Vector3(5.6, 1.3019016, -4.0333447)
+bones/31/position = Vector3(-4.200001, 1.3019024, -4.0333447)
+bones/32/position = Vector3(-5.600001, 1.3019025, -4.0333447)
+bones/34/rotation = Quaternion(-3.7777475e-08, -1.7615926e-08, 0.9063078, -0.42261827)
+bones/35/rotation = Quaternion(-1.2143874e-08, 2.6042615e-08, 0.42261836, 0.9063079)
+bones/36/position = Vector3(-6.1000004, 1.3019024, -4.0333443)
