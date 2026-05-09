@@ -1,0 +1,93 @@
+[gd_scene load_steps=2 format=3 uid="uid://doftr1fre3tqq"]
+
+[ext_resource type="Script" uid="uid://tbysyjlorc2h" path="res://scripts/tank_selection.gd" id="1_script"]
+
+[node name="TankSelection" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.08, 0.1, 0.14, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -220.0
+offset_top = -200.0
+offset_right = 220.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+
+[node name="LevelLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Level 1 - PVE"
+horizontal_alignment = 1
+
+[node name="Title" type="Label" parent="VBoxContainer"]
+modulate = Color(0.8, 0.8, 0.8, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Chọn xe tăng của bạn"
+horizontal_alignment = 1
+
+[node name="TankButtons" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Tank1Btn" type="Button" parent="VBoxContainer/TankButtons"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Tank 1 - Cơ bản"
+
+[node name="Tank2Btn" type="Button" parent="VBoxContainer/TankButtons"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Tank 2 - Sát thương cao"
+
+[node name="Tank3Btn" type="Button" parent="VBoxContainer/TankButtons"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Tank 3 - Máu nhiều"
+
+[node name="Tank4Btn" type="Button" parent="VBoxContainer/TankButtons"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Tank 4 - Toàn năng"
+
+[node name="InfoLabel" type="Label" parent="VBoxContainer"]
+modulate = Color(0.9, 0.9, 0.6, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "❤️ HP: 250   ⚔️ Damage: 40   ⚡ Speed: 12"
+horizontal_alignment = 1
+
+[node name="StartButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Bắt đầu"
+
+[node name="BackButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Quay lại"
+
+[connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="VBoxContainer/BackButton" to="." method="_on_back_pressed"]

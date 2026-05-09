@@ -1,6 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://d03xx36e36y1q"]
+[gd_scene load_steps=8 format=3]
 
-[ext_resource type="Script" uid="uid://bafaoglvneuy5" path="res://scripts/player_tank.gd" id="1_script"]
+[ext_resource type="Script" path="res://scripts/player_tank.gd" id="1_script"]
 [ext_resource type="PackedScene" path="res://scenes/bullet.tscn" id="2_bullet"]
 [ext_resource type="PackedScene" path="res://scenes/health_bar.tscn" id="3_hp"]
 
@@ -19,9 +19,7 @@ size = Vector3(1.2, 0.6, 1.2)
 [sub_resource type="CylinderMesh" id="CylinderMesh_1"]
 top_radius = 0.15
 bottom_radius = 0.15
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_l26o4"]
-viewport_path = NodePath("SubViewport")
+height = 2.0
 
 [node name="PlayerTank" type="CharacterBody3D" groups=["player"]]
 collision_layer = 2
@@ -66,4 +64,3 @@ current = true
 far = 200.0
 
 [node name="HealthBar" parent="." instance=ExtResource("3_hp")]
-texture = SubResource("ViewportTexture_l26o4")

@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://bgvj1002r0s0"]
+
+[ext_resource type="Script" uid="uid://do1vy804mggd6" path="res://scripts/star_pickup.gd" id="1_2ekua"]
+[ext_resource type="PackedScene" uid="uid://dkrpjeh0yugcg" path="res://assets/Tiles/star.glb" id="2_oughs"]
+
+[node name="StarPickup" type="Area3D"]
+script = ExtResource("1_2ekua")
+
+[node name="star" parent="." instance=ExtResource("2_oughs")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+skeleton = NodePath("../star")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.21070564, 0)
+radius = 0.6
