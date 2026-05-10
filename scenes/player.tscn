@@ -1,0 +1,63 @@
+[gd_scene load_steps=9 format=3 uid="uid://cixx5ek2ei23f"]
+
+[ext_resource type="Script" uid="uid://bafaoglvneuy5" path="res://scripts/player_tank.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://scenes/bullet.tscn" id="2_bullet"]
+[ext_resource type="PackedScene" path="res://scenes/health_bar.tscn" id="3_hp"]
+[ext_resource type="PackedScene" uid="uid://05cle82b30ho" path="res://models/ArmTank.gltf" id="4_model"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1"]
+size = Vector3(0.4829712, 0.3293457, 0.5420532)
+
+[sub_resource type="BoxMesh" id="BoxMesh_turret"]
+size = Vector3(1.2, 0.6, 1.2)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_barrel"]
+top_radius = 0.15
+bottom_radius = 0.15
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_rdc6h"]
+viewport_path = NodePath("SubViewport")
+
+[node name="player_tank" type="CharacterBody3D" groups=["player"]]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_script")
+bullet_scene = ExtResource("2_bullet")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0.9, 0)
+shape = SubResource("BoxShape3D_1")
+
+[node name="TankModel" parent="." instance=ExtResource("4_model")]
+transform = Transform3D(-5, 0, 7.54979e-07, 0, 5, 0, -7.54979e-07, 0, -5, 0, 0, 0)
+
+[node name="Turret" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9564956, 0)
+
+[node name="TurretMesh" type="MeshInstance3D" parent="Turret"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+visible = false
+mesh = SubResource("BoxMesh_turret")
+
+[node name="Barrel" type="Node3D" parent="Turret"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, -0.6)
+
+[node name="BarrelMesh" type="MeshInstance3D" parent="Turret/Barrel"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -1)
+visible = false
+mesh = SubResource("CylinderMesh_barrel")
+
+[node name="ShootPoint" type="Marker3D" parent="Turret/Barrel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.1)
+
+[node name="CameraPivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.8660249, 0.5, 0, -0.5, 0.8660249, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15)
+current = true
+far = 200.0
+
+[node name="HealthBar" parent="." instance=ExtResource("3_hp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1260078, 0)
+texture = SubResource("ViewportTexture_rdc6h")

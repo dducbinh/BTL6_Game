@@ -1,6 +1,6 @@
-[gd_scene load_steps=8 format=3]
+[gd_scene load_steps=10 format=3 uid="uid://c5jta3bvd8mng"]
 
-[ext_resource type="Script" path="res://scripts/enemy_tank.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://sebfkp0tvxdd" path="res://scripts/enemy_tank.gd" id="1_script"]
 [ext_resource type="PackedScene" path="res://scenes/bullet.tscn" id="2_bullet"]
 [ext_resource type="PackedScene" path="res://scenes/health_bar.tscn" id="3_hp"]
 
@@ -19,12 +19,15 @@ size = Vector3(1.2, 0.6, 1.2)
 [sub_resource type="CylinderMesh" id="CylinderMesh_1"]
 top_radius = 0.15
 bottom_radius = 0.15
-height = 2.0
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_tnyut"]
+viewport_path = NodePath("SubViewport")
 
 [node name="EnemyTank" type="CharacterBody3D" groups=["enemies"]]
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_script")
+enemy_type = 0
 bullet_scene = ExtResource("2_bullet")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -56,3 +59,4 @@ surface_material_override/0 = SubResource("StandardMaterial3D_1")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.1)
 
 [node name="HealthBar" parent="." instance=ExtResource("3_hp")]
+texture = SubResource("ViewportTexture_tnyut")

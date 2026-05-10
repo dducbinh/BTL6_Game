@@ -1,7 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://cc06g1p731jr2"]
+[gd_scene load_steps=10 format=3 uid="uid://cc06g1p731jr2"]
 
 [ext_resource type="PackedScene" uid="uid://bgvj1002r0s0" path="res://scenes/star_pickup.tscn" id="2_4wyf3"]
 [ext_resource type="MeshLibrary" uid="uid://g28c2hfxsyb4" path="res://tiles.tres" id="2_rwgxs"]
+[ext_resource type="Script" uid="uid://c7pen3t2de0km" path="res://scripts/level_manager.gd" id="4_level"]
+[ext_resource type="Script" uid="uid://61lj0qiowh8i" path="res://scripts/game_manager.gd" id="5_game"]
+[ext_resource type="PackedScene" uid="uid://cixx5ek2ei23f" path="res://scenes/player.tscn" id="6_i7141"]
+[ext_resource type="PackedScene" uid="uid://ctta4gi5yal6p" path="res://scenes/enemy.tscn" id="6_qfnet"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_k0juu"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -27,7 +31,7 @@ environment = SubResource("Environment_qfnet")
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 96.11224, 0)
 shadow_enabled = true
 
-[node name="GridMap" type="GridMap" parent="."]
+[node name="GridMap" type="GridMap" parent="Map"]
 mesh_library = ExtResource("2_rwgxs")
 cell_size = Vector3(1, 0.25, 1)
 data = {
@@ -36,4 +40,128 @@ data = {
 metadata/_editor_floor_ = Vector3(0, 3, 0)
 
 [node name="StarPickup" parent="." instance=ExtResource("2_4wyf3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5343442, 0)
+
+[node name="LevelManager" type="Node" parent="."]
+script = ExtResource("4_level")
+
+[node name="GameManager" type="Node" parent="."]
+script = ExtResource("5_game")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+process_mode = 3
+
+[node name="HUDLabel" type="Label" parent="CanvasLayer"]
+visible = false
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 400.0
+offset_bottom = 60.0
+theme_override_font_sizes/font_size = 24
+text = "Level 1"
+
+[node name="PauseUI" type="ColorRect" parent="CanvasLayer"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.7)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PauseUI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -80.0
+offset_right = 100.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="CanvasLayer/PauseUI/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "TẠM DỪNG"
+horizontal_alignment = 1
+
+[node name="ResumeButton" type="Button" parent="CanvasLayer/PauseUI/VBoxContainer"]
+layout_mode = 2
+text = "Tiếp tục"
+
+[node name="MenuButton" type="Button" parent="CanvasLayer/PauseUI/VBoxContainer"]
+layout_mode = 2
+text = "Menu chính"
+
+[node name="GameOverUI" type="ColorRect" parent="CanvasLayer"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.8)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/GameOverUI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -120.0
+offset_right = 150.0
+offset_bottom = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="ResultLabel" type="Label" parent="CanvasLayer/GameOverUI/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "BẠN ĐÃ THẮNG!"
+horizontal_alignment = 1
+
+[node name="NextLevelButton" type="Button" parent="CanvasLayer/GameOverUI/VBoxContainer"]
+layout_mode = 2
+text = "Màn tiếp theo"
+
+[node name="RestartButton" type="Button" parent="CanvasLayer/GameOverUI/VBoxContainer"]
+layout_mode = 2
+text = "Chơi lại"
+
+[node name="MenuButton" type="Button" parent="CanvasLayer/GameOverUI/VBoxContainer"]
+layout_mode = 2
+text = "Menu chính"
+
+[node name="player_tank" parent="." instance=ExtResource("6_i7141")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 40.506)
+
+[node name="Enemies" type="Node3D" parent="."]
+
+[node name="enemy_tank" parent="Enemies" groups=["enemies"] instance=ExtResource("6_qfnet")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 20, 0.9, -45)
+enemy_type = 0
+
+[node name="enemy_tank2" parent="Enemies" groups=["enemies"] instance=ExtResource("6_qfnet")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0.9, -45)
+enemy_type = 0
+
+[node name="enemy_tank3" parent="Enemies" groups=["enemies"] instance=ExtResource("6_qfnet")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -20, 0.9, -45)
+enemy_type = 0
+
+[node name="enemy_tank" parent="." groups=["enemies"] instance=ExtResource("6_qfnet")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0229249, 0.8758, 47.19296)
+
+[connection signal="pressed" from="CanvasLayer/PauseUI/VBoxContainer/ResumeButton" to="LevelManager" method="_on_resume_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/PauseUI/VBoxContainer/MenuButton" to="LevelManager" method="_on_menu_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/GameOverUI/VBoxContainer/NextLevelButton" to="LevelManager" method="_on_next_level_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/GameOverUI/VBoxContainer/RestartButton" to="LevelManager" method="_on_restart_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/GameOverUI/VBoxContainer/MenuButton" to="LevelManager" method="_on_menu_button_pressed"]

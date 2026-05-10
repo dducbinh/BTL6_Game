@@ -1,0 +1,57 @@
+[gd_scene load_steps=9 format=3 uid="uid://ctta4gi5yal6p"]
+
+[ext_resource type="Script" uid="uid://sebfkp0tvxdd" path="res://scripts/enemy_tank.gd" id="1_4ra3w"]
+[ext_resource type="PackedScene" path="res://scenes/bullet.tscn" id="2_c4w8v"]
+[ext_resource type="PackedScene" uid="uid://05cle82b30ho" path="res://models/ArmTank.gltf" id="3_xwavj"]
+[ext_resource type="PackedScene" path="res://scenes/health_bar.tscn" id="4_nenq2"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1"]
+size = Vector3(0.4829712, 0.36206055, 0.5420532)
+
+[sub_resource type="BoxMesh" id="BoxMesh_5uy6h"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_barrel"]
+top_radius = 0.15
+bottom_radius = 0.15
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_rdc6h"]
+viewport_path = NodePath("SubViewport")
+
+[node name="enemy_tank" type="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_4ra3w")
+bullet_scene = ExtResource("2_c4w8v")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0.9004225, 0)
+shape = SubResource("BoxShape3D_1")
+
+[node name="Body" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+mesh = SubResource("BoxMesh_5uy6h")
+
+[node name="TankModel" parent="." instance=ExtResource("3_xwavj")]
+transform = Transform3D(-5, 0, 7.54979e-07, 0, 5, 0, -7.54979e-07, 0, -5, 0, 0, 0)
+
+[node name="Turret" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9564956, 0)
+
+[node name="TurretMesh" type="MeshInstance3D" parent="Turret"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+visible = false
+
+[node name="Barrel" type="Node3D" parent="Turret"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, -0.6)
+
+[node name="BarrelMesh" type="MeshInstance3D" parent="Turret/Barrel"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -1)
+visible = false
+mesh = SubResource("CylinderMesh_barrel")
+
+[node name="ShootPoint" type="Marker3D" parent="Turret/Barrel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.1)
+
+[node name="HealthBar" parent="." instance=ExtResource("4_nenq2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1260078, 0)
+texture = SubResource("ViewportTexture_rdc6h")

@@ -17,8 +17,8 @@ func _ready():
 	player = get_tree().get_first_node_in_group("player")
 
 func setup_stats():
-	var body_mesh: MeshInstance3D = $Body
-	var mat = body_mesh.get_surface_override_material(0).duplicate()
+	#var body_mesh: MeshInstance3D = $Body
+	#var mat = body_mesh.get_surface_override_material(0).duplicate()
 	
 	match enemy_type:
 		EnemyType.LIGHT:
@@ -30,7 +30,7 @@ func setup_stats():
 			scale = Vector3(0.8, 0.9, 0.8) # Not too short, so bullets can hit it
 			$Turret.scale = Vector3(0.9, 0.9, 0.9)
 			$Turret/Barrel.scale = Vector3(0.7, 0.7, 1.2)
-			mat.albedo_color = Color(0.8, 0.8, 0.2)
+			#mat.albedo_color = Color(0.8, 0.8, 0.2)
 		EnemyType.MEDIUM:
 			speed = 13.0
 			health = 100
@@ -38,7 +38,7 @@ func setup_stats():
 			shoot_cooldown = 2.0
 			attack_range = 25.0
 			scale = Vector3(1.0, 1.0, 1.0)
-			mat.albedo_color = Color(0.8, 0.4, 0.1)
+			#mat.albedo_color = Color(0.8, 0.4, 0.1)
 		EnemyType.HEAVY:
 			speed = 9.0
 			health = 350
@@ -48,11 +48,11 @@ func setup_stats():
 			scale = Vector3(1.4, 1.2, 1.4)
 			$Turret.scale = Vector3(1.2, 1.1, 1.2)
 			$Turret/Barrel.scale = Vector3(1.5, 1.5, 0.8)
-			mat.albedo_color = Color(0.5, 0.1, 0.1)
+			#mat.albedo_color = Color(0.5, 0.1, 0.1)
 	
-	body_mesh.set_surface_override_material(0, mat)
-	$Turret/TurretMesh.set_surface_override_material(0, mat)
-	$Turret/Barrel/BarrelMesh.set_surface_override_material(0, mat)
+	#body_mesh.set_surface_override_material(0, mat)
+	#$Turret/TurretMesh.set_surface_override_material(0, mat)
+	#$Turret/Barrel/BarrelMesh.set_surface_override_material(0, mat)
 	
 	max_health = health
 	if health_bar:

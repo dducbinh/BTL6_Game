@@ -9,12 +9,13 @@ script = ExtResource("1_2ekua")
 [node name="star" parent="." instance=ExtResource("2_oughs")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
-skeleton = NodePath("../star")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="star"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="star/MeshInstance3D"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+visible = false
 
-[node name="CSGSphere3D" type="CSGSphere3D" parent="CollisionShape3D"]
+[node name="CSGSphere3D" type="CSGSphere3D" parent="star/MeshInstance3D/CollisionShape3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.21070564, 0)
+visible = false
 radius = 0.6

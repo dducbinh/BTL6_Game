@@ -8,12 +8,6 @@ const TANK_STATS = {
 	3: { "name": "Tank 4 - Toàn năng", "health": 450, "damage": 70, "speed": 11.0 },
 }
 
-const TANK_SCENES = {
-	0: "res://scenes/tank_1.tscn",
-	1: "res://scenes/tank_2.tscn",
-	2: "res://scenes/tank_3.tscn",
-	3: "res://scenes/tank_4.tscn",
-}
 
 # Level scenes
 const LEVEL_SCENES = [
