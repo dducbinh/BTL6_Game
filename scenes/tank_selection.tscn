@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://doftr1fre3tqq"]
+[gd_scene load_steps=2 format=3 uid="uid://cbnvyxg5aldl7"]
 
-[ext_resource type="Script" uid="uid://tbysyjlorc2h" path="res://scripts/tank_selection.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://tbysyjlorc2h" path="res://scripts/level_selection.gd" id="1_script"]
 
 [node name="TankSelection" type="Control"]
 layout_mode = 3

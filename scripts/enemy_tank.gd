@@ -17,8 +17,8 @@ func _ready():
 	player = get_tree().get_first_node_in_group("player")
 
 func setup_stats():
-	#var body_mesh: MeshInstance3D = $Body
-	#var mat = body_mesh.get_surface_override_material(0).duplicate()
+	var _body_mesh: MeshInstance3D = $Body
+	#var mat = _body_mesh.get_surface_override_material(0).duplicate()
 	
 	match enemy_type:
 		EnemyType.LIGHT:
